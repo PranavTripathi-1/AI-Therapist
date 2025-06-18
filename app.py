@@ -7,7 +7,8 @@ from logger import log_conversation
 st.title("🧠 AI Therapist for Mental Health")
 
 if st.button("Start Talking"):
-    user_input = voice_to_text()
+    user_input = st.text_area("How are you feeling today?")
+    
     st.text_area("You said:", user_input)
 
     sentiment, score, stress = analyze_sentiment(user_input)
