@@ -1,17 +1,24 @@
+# sentiment_analysis.py
+
 from transformers import pipeline
 
-sentiment_analyzer = pipeline("sentiment-analysis")
+# Load a pre-trained sentiment analysis model
+sentiment_pipeline = pipeline("sentiment-analysis")
 
 def analyze_sentiment(text):
-    result = sentiment_analyzer(text)[0]
+    result = sentiment_pipeline(text)[0]
     label = result['label']
     score = result['score']
-    
-    if label == 'NEGATIVE':
-        stress_level = 'High Stress'
-    elif label == 'POSITIVE':
-        stress_level = 'Low Stress'
+
+    # Classify stress level based on label and confidence
+    if label == "NEGATIVE" and score > 0.9:
+        stress_level = "High"
+    elif label == "NEGATIVE":
+        stress_level = "Moderate"
+    elif label == "POSITIVE" and score > 0.9:
+        stress_level = "Low"
     else:
-        stress_level = 'Moderate Stress'
-    
-    return label, score, stress_level
+        stress_level = "Normal"
+
+    return label.capitalize(), stress_level
+
