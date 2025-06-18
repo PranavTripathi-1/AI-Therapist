@@ -1,20 +1,31 @@
 import streamlit as st
-from speech_to_text import voice_to_text
+from chatbot import get_bot_response
 from sentiment_analysis import analyze_sentiment
-from chatbot import chatbot_response
 from logger import log_conversation
 
-st.title("🧠 AI Therapist for Mental Health")
+st.set_page_config(page_title="AI Therapist", layout="centered")
 
-if st.button("Start Talking"):
-    user_input = st.text_area("How are you feeling today?")
-    
-    st.text_area("You said:", user_input)
+st.title("🧠 AI Therapist")
+st.markdown("Talk to your virtual mental health assistant. Type how you feel, and I’ll listen and support you.")
 
-    sentiment, score, stress = analyze_sentiment(user_input)
-    st.markdown(f"**Sentiment**: {sentiment} | **Stress**: {stress} ({score:.2f})")
+# Use text input instead of microphone for Streamlit Cloud
+user_input = st.text_area("How are you feeling today?", height=150)
 
-    bot_reply, _ = chatbot_response(user_input)
-    st.text_area("Therapist:", bot_reply)
+if st.button("Analyze & Respond") and user_input:
+    # Analyze sentiment and stress
+    sentiment, stress_level = analyze_sentiment(user_input)
 
-    log_conversation(user_input, bot_reply, sentiment, score)
+    # Get chatbot response
+    response = get_bot_response(user_input)
+
+    # Show results
+    st.markdown("### 🧾 Chatbot Response")
+    st.write(response)
+
+    st.markdown("### 📊 Sentiment Analysis")
+    st.write(f"**Sentiment:** {sentiment}")
+    st.write(f"**Stress Level:** {stress_level}")
+
+    # Log the conversation
+    log_conversation(user_input, response, sentiment, stress_level)
+
