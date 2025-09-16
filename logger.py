@@ -6,7 +6,7 @@ from datetime import datetime
 
 LOG_FILE = "conversation_log.json"
 
-def log_conversation(user_input, bot_response = None, sentiment, stress_level):
+def log_conversation(user_input, bot_response, sentiment, stress_level):
     log_entry = {
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "user_input": user_input,
