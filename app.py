@@ -27,5 +27,5 @@ if st.button("Analyze & Respond") and user_input:
     st.write(f"**User's Stress Level:** {stress_level}")
 
     # Log the conversation
-    log_conversation(user_input, None, sentiment, stress_level)
+    # log_conversation(user_input, None, sentiment, stress_level)
 
