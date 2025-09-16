@@ -1,7 +1,7 @@
 import streamlit as st
 from chatbot import get_bot_response
 from sentiment_analysis import analyze_sentiment
-from logger import log_conversation
+# from logger import log_conversation
 
 st.set_page_config(page_title="AI Therapist", layout="centered")
 
